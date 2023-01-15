@@ -16,7 +16,7 @@ const Clientes = dataBase.define('clientes', {
         }
     },
     numero_identificacion: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(11),
         allowNull: false,
     },
     nombres: {
