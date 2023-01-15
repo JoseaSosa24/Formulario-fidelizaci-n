@@ -1,28 +1,27 @@
 import dataBase from "../database/dataBase.js";
 import { DataTypes } from "sequelize";
 
-const TipoIdentificacion = dataBase.define('tipo_identificacion', {
+const TipoIdentificacion = dataBase.define('tipos_identificaciones', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull: false,
     },
     createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        allowNull: false
     },
     updatedAt: {
         type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
+        allowNull: false
     }
 });
 
-TipoIdentificacion.sync({ force: false });
+ 
+ TipoIdentificacion.sync({ force: false }); 
 
 export { TipoIdentificacion }

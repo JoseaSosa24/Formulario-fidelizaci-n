@@ -8,7 +8,7 @@ const Marcas = dataBase.define('marcas', {
         autoIncrement: true
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     createdAt: {

@@ -8,7 +8,7 @@ const Paises = dataBase.define('paises', {
         autoIncrement: true
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(70),
         allowNull: false,
     },
     createdAt: {

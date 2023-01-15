@@ -11,7 +11,7 @@ const Clientes = dataBase.define('clientes', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'tipo_identificacion',
+            model: 'tipos_identificaciones',
             key: 'id'
         }
     },
@@ -20,11 +20,11 @@ const Clientes = dataBase.define('clientes', {
         allowNull: false,
     },
     nombres: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     apellidos: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         allowNull: false,
     },
     fecha_nacimiento: {

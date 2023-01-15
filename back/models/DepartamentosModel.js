@@ -8,7 +8,7 @@ const Departamentos = dataBase.define('departamentos', {
         autoIncrement: true
     },
     nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(60),
         allowNull: false,
     },
     pais_id: {

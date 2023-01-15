@@ -22,7 +22,7 @@ const mostrarCiudades = async (req, res) => {
         res.json(ciudades)
     } catch (error) {
         res.json({
-            message: "La ciudad no se pudo crear " + error
+            message: "La ciudades no se puden mostrar " + error
         });
 
     }
