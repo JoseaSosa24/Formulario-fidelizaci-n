@@ -39,8 +39,8 @@ const mostrarCliente = async (req, res) => {
         const cliente = await Clientes.findOne({
             where: {
                 [Op.or]: [
-                {idCliente: req.params.id},
-                {cedCliente: req.params.id},
+                {id: req.params.id},
+                {numero_identificacion: req.params.id},
                 ]
             }
         });
@@ -60,8 +60,8 @@ const editarCliente = async (req, res) => {
         await Clientes.update(req.body, {
             where: {
                 [Op.or]: [
-                {idCliente: req.params.id},
-                {cedCliente: req.params.id},
+                {id: req.params.id},
+                {numero_identificacion: req.params.id},
                 ]
             }
         });
@@ -83,7 +83,7 @@ const borrarCliente = async (req, res) => {
     try {
 
         await Clientes.destroy({
-            where: { idCliente: req.params.id }
+            where: { id: req.params.id }
         });
         res.json({
             message: "El cliente se borrado correctamente "
