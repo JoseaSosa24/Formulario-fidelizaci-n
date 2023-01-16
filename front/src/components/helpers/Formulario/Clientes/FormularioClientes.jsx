@@ -97,8 +97,8 @@ export const FormularioClientes = () => {
 
     const agregarCliente = async (valores) => {
         console.table(valores)
-         /* const { tipoIdentificacion,numero_identificacion, nombres, apellidos, direccion,
-            paises, marcas } = valores  */
+        /* const { tipoIdentificacion,numero_identificacion, nombres, apellidos, direccion,
+           paises, marcas } = valores  */
 
         const res = await axios.post(uriClientes, {
             "tipo_identificacion_id": valores.tipoIdentificacion,
@@ -107,8 +107,12 @@ export const FormularioClientes = () => {
             "apellidos": valores.apellidos,
             "fecha_nacimiento": valores.fecha_nacimiento,
             "direccion": valores.direccion,
+            "correo": valores.correo,
             "pais_id": valores.paises,
+            "departamento_id": valores.departamentos,
+            "ciudad_id": valores.ciudades,
             "marca_id": valores.marcas
+
         });
         if (res.data.estado) {
             console.log("Agregado")
@@ -128,6 +132,7 @@ export const FormularioClientes = () => {
                 <section className="formulario d-flex align-items-center justify-content-center p-4">
 
                     <Formik
+                        enableReinitialize={true}
                         initialValues={{
                             tipoIdentificacion: '',
                             numero_identificacion: '',
@@ -141,20 +146,57 @@ export const FormularioClientes = () => {
                             ciudades: '',
                             marcas: ''
                         }}
-                        
-                        
+
+                        validate={(valores) => {
+                            let errores = {};
+
+                            if (!valores.numero_identificacion) {
+                                errores.numero_identificacion = 'Identificación requerida'
+                            } else if (!expresionRegular.documento.test(valores.numero_identificacion)) {
+                                errores.numero_identificacion = 'El documento debe tener mínimo 9 máximo 10 digitos númericos'
+                            }
+
+                            if (!valores.nombres) {
+                                errores.nombres = 'Nombre requerido'
+                            } else if (!expresionRegular.nombre.test(valores.nombres)) {
+                                errores.nombres = 'El nombre solo puede contener letras y espacios'
+                            }
+
+                            if (!valores.apellidos) {
+                                errores.apellidos = 'Apellido requerido'
+                            } else if (!expresionRegular.nombre.test(valores.apellidos)) {
+                                errores.apellidos = 'El nombre solo puede contener letras y espacios'
+                            }
+
+                            if (!valores.correo) {
+                                errores.correo = 'Correo requerido'
+                            } else if (!expresionRegular.correo.test(valores.correo)) {
+                                errores.correo = 'El correo solo puede contener letras, numeros, puntos, guiones y guion bajo.'
+                            }
+
+                            if (!valores.direccion) {
+                                errores.direccion = 'Dirección requerida'
+                            } /*else if (!expresionRegular.direccion.test(valores.direccion)) {
+                errores.direccion = 'El direccion debe contener @ ,.'
+              }*/
+                            if (!valores.fecha_nacimiento) {
+                                errores.fecha_nacimiento = 'Por favor selecciona una fecha'
+                            }
+
+                            return errores;
+                        }}
+
                         onSubmit={(valores, { resetForm }) => {
                             agregarCliente(valores)
-                            /* cambiarFormularioEnviado(true); */
                             //resetForm();
                         }}
                     >
                         {({ errors, touched }) => (
                             <section className="formulario d-flex align-items-center justify-content-center p-4 w-100">
                                 <Form className="formulario-clientes row col-12 d-flex g-3 ">
-                                    <section>
-                                        <h3 className="">Tipo de Identificación</h3>
-                                        <Field className="" name="tipoIdentificacion" as="select">
+                                    <section className='col-3'>
+                                        <h3 className="text-white fs-5">Tipo de Identificación</h3>
+                                        <Field className="form-control" name="tipoIdentificacion" as="select">
                                             <option value="none">Seleccione una identificación</option>
                                             {
                                                 datosIdentificaciones.map((datoIdentificacion) => (
@@ -169,61 +211,67 @@ export const FormularioClientes = () => {
                                         classSection={"col-3"}
                                         title={"Número de identificación"}
                                         tipoInput={"text"}
-                                        inputId={"numero_identificacion"}
+                                        error={errors.numero_identificacion}
+                                        touched={touched.numero_identificacion}
                                         inputName="numero_identificacion"
                                         inputPlaceholder={"10364845"}
                                         maxlength="10"
                                     />
-                                    
+
                                     <FormInput
-                                        classSection={"col-4"}
+                                        classSection={"col-3"}
                                         title={"Nombres:"}
                                         tipoInput={"text"}
+                                        error={errors.nombres}
+                                        touched={touched.nombres}
                                         inputId={"nombres"}
                                         inputName="nombres"
                                         inputPlaceholder={"Juan Camilo"}
                                     />
                                     <FormInput
-                                        classSection={"col-4"}
+                                        classSection={"col-3"}
                                         title={"Apellidos:"}
-
                                         tipoInput={"text"}
+                                        error={errors.apellidos}
+                                        touched={touched.apellidos}
                                         inputId={"apellidos"}
                                         inputName="apellidos"
                                         inputPlaceholder={"Perez Gomez"}
                                     />
                                     <FormInput
-                                        classSection={"col-4"}
+                                        classSection={"col-3"}
                                         title={"Fecha de Nacimiento: "}
-                                        /*error={errors.apellidos}
-                                        touched={touched.apellidos}*/
+                                        error={errors.fecha_nacimiento}
+                                        touched={touched.fecha_nacimiento}
                                         tipoInput={"date"}
                                         inputId={"fecha_nacimiento"}
                                         inputName="fecha_nacimiento"
                                         inputPlaceholder={"Perez Gomez"}
                                     />
                                     <FormInput
-                                        classSection={"col-5"}
+                                        classSection={"col-4"}
                                         title={"Dirección :"}
-
+                                        error={errors.direccion}
+                                        touched={touched.direccion}
                                         tipoInput={"text"}
                                         inputId={"direccion"}
                                         inputName="direccion"
                                         inputPlaceholder={"CLL 20 A #10"}
                                     />
                                     <FormInput
-                                        classSection={"col-5"}
+                                        classSection={"col-3"}
                                         title={"Correo:"}
-
+                                        error={errors.correo}
+                                        touched={touched.correo}
                                         tipoInput={"email"}
                                         inputId={"correo"}
                                         inputName="correo"
                                         inputPlaceholder={"juanperez@gmail.com"}
                                     />
-                                    <section>
-                                        <h3 className="">Pais: </h3>
-                                        <Field className="" name="paises" as="select">
-                                            <option value="none">Seleccione Pais</option>
+                                    <section className='col-3'>
+                                        <h3 className="text-white fs-5">Pais: </h3>
+                                        <Field className="form-select" name="paises" as="select">
+                                            <option value="">Seleccione Pais</option>
                                             {
                                                 datosPaises.map((datoPais) => (
                                                     <option key={datoPais.id} value={datoPais.id} id={datoPais.id}>
@@ -233,9 +281,9 @@ export const FormularioClientes = () => {
                                             }
                                         </Field>
                                     </section>
-                                    <section>
-                                        <h3 className="">Departamento: </h3>
-                                        <Field className="" name="departamentos" as="select">
+                                    <section className='col-3'>
+                                        <h3 className="text-white fs-5">Departamento: </h3>
+                                        <Field className="form-select" name="departamentos" as="select">
                                             <option value="none">Seleccione Departamento</option>
                                             {
                                                 datosDepartamentos.map((datoDepartmento) => (
@@ -246,10 +294,10 @@ export const FormularioClientes = () => {
                                             }
                                         </Field>
                                     </section>
-                                    <section>
-                                        <h3 className="">Ciudad: </h3>
-                                        <Field className="" name="ciudades" as="select">
-                                            <option value="none">Seleccione Ciudad</option>
+                                    <section className='col-3'>
+                                        <h3 className="text-white fs-5">Ciudad: </h3>
+                                        <Field className="form-select" name="ciudades" as="select">
+                                            <option value="">Seleccione Ciudad</option>
                                             {
                                                 datosCiudades.map((datoCiudad) => (
                                                     <option key={datoCiudad.id} value={datoCiudad.id} id={datoCiudad.id}>
@@ -259,11 +307,10 @@ export const FormularioClientes = () => {
                                             }
                                         </Field>
                                     </section>
-
-                                    <section>
-                                        <h3 className="">Marca: </h3>
-                                        <Field className="" name="marcas" as="select">
-                                            <option value="none">Seleccione Marca</option>
+                                    <section className='col-4'>
+                                        <h3 className="text-white fs-5">Marca: </h3>
+                                        <Field className="form-select" name="marcas" as="select">
+                                            <option value="">Seleccione Marca</option>
                                             {
                                                 datosMarcas.map((datoMarca) => (
                                                     <option key={datoMarca.id} value={datoMarca.id} id={datoMarca.id}>
@@ -275,8 +322,8 @@ export const FormularioClientes = () => {
                                     </section>
 
                                     <Button clase={'form-button d-flex justify-content-center col-12'}
-                                        classButton={'guardar form-button col-3'}
-                                        textButton={'Guardar'} type={'submit'} />
+                                        classButton={'guardar btn btn-primary col-2'}
+                                        textButton={'Enviar'} type={'submit'} />
                                 </Form>
                             </section>
                         )}
