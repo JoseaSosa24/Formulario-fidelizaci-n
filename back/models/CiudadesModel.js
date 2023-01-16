@@ -48,11 +48,11 @@ const Ciudades = dataBase.define('ciudades', {
         where: { id: ciudad.id }, defaults: ciudad
     }
 ));  */
-Ciudades.bulkCreate(ciudadesJSON, { ignoreDuplicates: true }).then(() => {
+/* Ciudades.bulkCreate(ciudadesJSON, { ignoreDuplicates: true }).then(() => {
     console.log('Datos insertados correctamente');
 }).catch((error) => {
     console.log(error);
-})
+}) */
 
 Ciudades.sync({ force: false });
 
