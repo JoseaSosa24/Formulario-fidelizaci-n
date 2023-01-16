@@ -14,10 +14,6 @@ const Departamentos = dataBase.define('departamentos', {
     pais_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: 'paises',
-            key: 'id'
-        }
     },
     createdAt: {
         type: DataTypes.DATE,

@@ -25,11 +25,7 @@ const Ciudades = dataBase.define('ciudades', {
     },
     departamento_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'departamentos',
-            key: 'id'
-        }
+        allowNull: false
     },
     createdAt: {
         type: DataTypes.DATE,

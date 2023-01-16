@@ -35,11 +35,31 @@ const Clientes = dataBase.define('clientes', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    correo: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
     pais_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'paises',
+            key: 'id'
+        }
+    },
+    departamento_id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'departamentos',
+            key: 'id'
+        }
+    },
+    ciudad_id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'ciudades',
             key: 'id'
         }
     },
