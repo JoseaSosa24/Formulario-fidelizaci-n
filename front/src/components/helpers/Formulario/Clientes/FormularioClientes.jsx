@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Titulo } from '../../Titulo';
 import { FormInput } from "../../Formulario/FormInput";
 import { Button } from '../Button';
@@ -125,31 +125,35 @@ export const FormularioClientes = () => {
         }
     }
 
+
     return (
         <>
-            <section className="registro-cliente m-4">
-                <Titulo textTitulo={"Registro Cliente:"} />
-                <section className="formulario d-flex align-items-center justify-content-center p-4">
-
+            <section className="registro-cliente">
+            <Titulo textTitulo={"Registro Cliente:"} />
+                <section className="contenedor-formulario d-flex align-items-center justify-content-center">
+                
                     <Formik
+                     className="formik"
                         enableReinitialize={true}
                         initialValues={{
-                            tipoIdentificacion: '',
+                            tipo_identificacion: 'none',
                             numero_identificacion: '',
                             nombres: '',
                             apellidos: '',
                             fecha_nacimiento: '',
                             direccion: '',
                             correo: '',
-                            paises: '',
-                            departamentos: '',
-                            ciudades: '',
-                            marcas: ''
+                            paises: 'none',
+                            departamentos: 'none',
+                            ciudades: 'none',
+                            marcas: 'none'
                         }}
 
                         validate={(valores) => {
                             let errores = {};
-
+                            if (valores.tipo_identificacion === 'none') {
+                                errores.tipo_identificacion = 'Tipo de Identificación requerida'
+                            }
                             if (!valores.numero_identificacion) {
                                 errores.numero_identificacion = 'Identificación requerida'
                             } else if (!expresionRegular.documento.test(valores.numero_identificacion)) {
@@ -182,7 +186,18 @@ export const FormularioClientes = () => {
                             if (!valores.fecha_nacimiento) {
                                 errores.fecha_nacimiento = 'Por favor selecciona una fecha'
                             }
-
+                            if (valores.paises === 'none') {
+                                errores.paises = 'País requerido'
+                            }
+                            if (valores.departamentos === 'none') {
+                                errores.departamentos = 'Departamento requerido'
+                            }
+                            if (valores.ciudades === 'none') {
+                                errores.ciudades = 'Ciudad requerida'
+                            }
+                            if (valores.marcas === 'none') {
+                                errores.marcas = 'Marca requerida'
+                            }
                             return errores;
                         }}
 
@@ -192,12 +207,16 @@ export const FormularioClientes = () => {
                         }}
                     >
                         {({ errors, touched }) => (
-                            <section className="formulario d-flex align-items-center justify-content-center p-4 w-100">
-                                <Form className="formulario-clientes row col-12 d-flex g-3 ">
-                                    <section className='col-3'>
-                                        <h3 className="text-white fs-5">Tipo de Identificación</h3>
-                                        <Field className="form-control" name="tipoIdentificacion" as="select">
-                                            <option value="none">Seleccione una identificación</option>
+                            
+                            <section className="formulario d-flex flex-column align-items-center justify-content-center">
+                            
+                                <Form className="formulario-clientes d-flex align-items-center justify-content-center row col-12 g-3 p-2">
+                                    <section className='col-5'>
+                                        <label className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>Tipo de Identificación</label>
+                                        <Field
+                                            className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "form-styling form-control item-form " :
+                                                "form-styling form-control item-form border border-danger border-3 rounded-4"} name="tipo_identificacion" as="select">
+                                            <option className='text-center' value="none">-Tipo Identificación-</option>
                                             {
                                                 datosIdentificaciones.map((datoIdentificacion) => (
                                                     <option key={datoIdentificacion.id} value={datoIdentificacion.id} id={datoIdentificacion.id}>
@@ -206,9 +225,11 @@ export const FormularioClientes = () => {
                                                 ))
                                             }
                                         </Field>
+                                        <ErrorMessage name="tipo_identificacion" component={() => (<p className="textoError text-danger fw-bold">{errors.tipo_identificacion}</p>)} />
                                     </section>
                                     <FormInput
-                                        classSection={"col-3"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Número de identificación"}
                                         tipoInput={"text"}
                                         error={errors.numero_identificacion}
@@ -219,7 +240,8 @@ export const FormularioClientes = () => {
                                     />
 
                                     <FormInput
-                                        classSection={"col-3"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Nombres:"}
                                         tipoInput={"text"}
                                         error={errors.nombres}
@@ -229,7 +251,8 @@ export const FormularioClientes = () => {
                                         inputPlaceholder={"Juan Camilo"}
                                     />
                                     <FormInput
-                                        classSection={"col-3"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Apellidos:"}
                                         tipoInput={"text"}
                                         error={errors.apellidos}
@@ -239,7 +262,8 @@ export const FormularioClientes = () => {
                                         inputPlaceholder={"Perez Gomez"}
                                     />
                                     <FormInput
-                                        classSection={"col-3"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Fecha de Nacimiento: "}
                                         error={errors.fecha_nacimiento}
                                         touched={touched.fecha_nacimiento}
@@ -249,7 +273,8 @@ export const FormularioClientes = () => {
                                         inputPlaceholder={"Perez Gomez"}
                                     />
                                     <FormInput
-                                        classSection={"col-4"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Dirección :"}
                                         error={errors.direccion}
                                         touched={touched.direccion}
@@ -259,7 +284,8 @@ export const FormularioClientes = () => {
                                         inputPlaceholder={"CLL 20 A #10"}
                                     />
                                     <FormInput
-                                        classSection={"col-3"}
+                                        classSection={"col-5"}
+                                        classInput="form-styling"
                                         title={"Correo:"}
                                         error={errors.correo}
                                         touched={touched.correo}
@@ -268,10 +294,11 @@ export const FormularioClientes = () => {
                                         inputName="correo"
                                         inputPlaceholder={"juanperez@gmail.com"}
                                     />
-                                    <section className='col-3'>
-                                        <h3 className="text-white fs-5">Pais: </h3>
-                                        <Field className="form-select" name="paises" as="select">
-                                            <option value="">Seleccione Pais</option>
+                                    <section className='col-5'>
+                                    <label className={!(errors.paises && touched.paises) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>País: </label>
+                                        <Field className={!(errors.paises && touched.paises) ? "form-styling form-control item-form " :
+                                            "form-styling form-control item-form border border-danger border-3 rounded-4"} name="paises" as="select">
+                                            <option className='text-center' value="none">-Seleccione País-</option>
                                             {
                                                 datosPaises.map((datoPais) => (
                                                     <option key={datoPais.id} value={datoPais.id} id={datoPais.id}>
@@ -280,11 +307,14 @@ export const FormularioClientes = () => {
                                                 ))
                                             }
                                         </Field>
+                                        <ErrorMessage name="paises" component={() => (<p className="textoError text-danger fw-bold">{errors.paises}</p>)} />
+
                                     </section>
-                                    <section className='col-3'>
-                                        <h3 className="text-white fs-5">Departamento: </h3>
-                                        <Field className="form-select" name="departamentos" as="select">
-                                            <option value="none">Seleccione Departamento</option>
+                                    <section className='col-5'>
+                                    <label className={!(errors.departamentos && touched.departamentos) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>Departamento: </label>
+                                        <Field className={!(errors.departamentos && touched.departamentos) ? "form-styling form-control item-form " :
+                                            "form-styling form-control item-form border border-danger border-3 rounded-4"} name="departamentos" as="select">
+                                            <option className='text-center' value="none">Seleccione Departamento</option>
                                             {
                                                 datosDepartamentos.map((datoDepartmento) => (
                                                     <option key={datoDepartmento.id} value={datoDepartmento.id} id={datoDepartmento.id}>
@@ -293,11 +323,13 @@ export const FormularioClientes = () => {
                                                 ))
                                             }
                                         </Field>
+                                        <ErrorMessage name="departamentos" component={() => (<p className="textoError text-danger fw-bold">{errors.departamentos}</p>)} />
                                     </section>
-                                    <section className='col-3'>
-                                        <h3 className="text-white fs-5">Ciudad: </h3>
-                                        <Field className="form-select" name="ciudades" as="select">
-                                            <option value="">Seleccione Ciudad</option>
+                                    <section className='col-5'>
+                                    <label className={!(errors.ciudades && touched.ciudades) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>Ciudad: </label>
+                                        <Field className={!(errors.ciudades && touched.ciudades) ? "form-styling form-control item-form " :
+                                            "form-styling form-control item-form border border-danger border-3 rounded-4"} name="ciudades" as="select">
+                                            <option className='text-center' value="">-Seleccione Ciudad-</option>
                                             {
                                                 datosCiudades.map((datoCiudad) => (
                                                     <option key={datoCiudad.id} value={datoCiudad.id} id={datoCiudad.id}>
@@ -306,11 +338,14 @@ export const FormularioClientes = () => {
                                                 ))
                                             }
                                         </Field>
+                                        <ErrorMessage name="ciudades" component={() => (<p className="textoError text-danger fw-bold">{errors.ciudades}</p>)} />
+
                                     </section>
-                                    <section className='col-4'>
-                                        <h3 className="text-white fs-5">Marca: </h3>
-                                        <Field className="form-select" name="marcas" as="select">
-                                            <option value="">Seleccione Marca</option>
+                                    <section className='col-5'>
+                                    <label className={!(errors.marcas && touched.marcas) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>Marca: </label>
+                                        <Field className={!(errors.marcas && touched.marcas) ? "form-styling form-control item-form " :
+                                            "form-styling form-control item-form border border-danger border-3 rounded-4"} name="marcas" as="select">
+                                            <option className='text-center' value="">-Seleccione Marca-</option>
                                             {
                                                 datosMarcas.map((datoMarca) => (
                                                     <option key={datoMarca.id} value={datoMarca.id} id={datoMarca.id}>
@@ -319,10 +354,11 @@ export const FormularioClientes = () => {
                                                 ))
                                             }
                                         </Field>
+                                        <ErrorMessage name="marcas" component={() => (<p className="textoError text-danger fw-bold">{errors.marcas}</p>)} />
                                     </section>
 
                                     <Button clase={'form-button d-flex justify-content-center col-12'}
-                                        classButton={'guardar btn btn-primary col-2'}
+                                        classButton={'btn-enviar btn btn-primary col-3 mt-3'}
                                         textButton={'Enviar'} type={'submit'} />
                                 </Form>
                             </section>
