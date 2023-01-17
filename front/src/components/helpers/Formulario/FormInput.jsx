@@ -10,16 +10,16 @@ export const FormInput = ({classSection, infomacionInput, inputId, error, touche
     <>
 
       <section className={" " + classSection}>
-        <h3 className={!(error && touched) ? "text-white fs-5" : "text-danger fs-5"}>{title}</h3>
+        <label className={!(error && touched) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>{title}</label>
         <Field
-          className={!(error && touched) ? classInput + " form-control item-form " : "form-control item-form border border-danger border-3 rounded-4"}
+          className={!(error && touched) ? classInput + " form-control item-form " : classInput +" form-control item-form border border-danger border-2 rounded-5"}
           type={tipoInput}
           id={inputId}
           name={inputName}
           placeholder={inputPlaceholder}
           maxLength={maxlength}
         />
-        <ErrorMessage name={inputName} component={() => (<p className="textoError text-danger">{error}</p>)} />
+        <ErrorMessage name={inputName} component={() => (<p className="textoError text-danger fw-bold">{error}</p>)} />
       </section>
     </>
   );
