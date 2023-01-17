@@ -3,10 +3,9 @@
 }
 
 body {
-  
   background-color: #141e26 !important;
-  height: 100vh;
-  width: 100vw;
+  width: auto !important;
+  height: 100vh !important;
   color: white !important;
 }
 
