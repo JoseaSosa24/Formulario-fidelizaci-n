@@ -1,23 +1,37 @@
-.galeria{
-    
+.galeria {
+}
+
+.text-0 {
+  font-size: 200px !important;
+  color: blue;
+}
+
+.numero-descuento {
+  font-size: 100pt;
+  font-style: italic;
 }
 
 .carousel-image {
-    transition: all 1s ease-in-out;
-  }
-  
-  .fade-enter {
-    opacity: 0;
-  }
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .fade-exit {
-    opacity: 1;
-  }
-  .fade-exit-active {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
+  transition: all 1s ease-in-out;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.mensaje {
+  font-size: 9pt !important;
+  font-style: italic;
+  opacity: 50%;
+}
