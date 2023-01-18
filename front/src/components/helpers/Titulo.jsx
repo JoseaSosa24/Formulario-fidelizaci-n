@@ -1,9 +1,9 @@
 import React from "react";
 
-export const Titulo = ({ textTitulo, tittle }) => {
+export const Titulo = ({className, textTitulo, tittle }) => {
   return (
     <section className={tittle}>
-      <h2 className="fw-bold">{textTitulo}</h2>
+      <h2 className={className+" fw-bold"}>{textTitulo}</h2>
     </section>
   );
 };
