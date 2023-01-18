@@ -2,26 +2,26 @@ import React from 'react'
 import footer from '../Footer/footer.css'
 export const Footer = () => {
     return (
-        <div class="footer-dark">
+        <section className="footer-dark">
             <footer>
-                <div class="container mt-4">
+                <section className="container mt-4">
 
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-md-4 item text">
+                    <section className="row d-flex justify-content-center">
+                        <section className="col-md-4 item text">
                             <h3>Grupo Uribe</h3>
                             <p>Conjunto de empresas ubicada en Medellín del sector textil con representación,
                                 y/o producción y comercialización para Colombia de las marcas Chevignon,
                                 Naf Naf, Americanino, Espit, Rifle, American Eagle, MNG.</p>
-                        </div>
-                        <div class="col-sm-6 col-md-3 item text">
+                        </section>
+                        <section className="col-sm-6 col-md-3 item text">
                             <h3>Tamaño de la empresa</h3>
                             <p>1001-5000 empleados</p>
-                        </div>
-                        <div class="col-sm-6 col-md-2 item text ">
+                        </section>
+                        <section className="col-sm-6 col-md-2 item text ">
                             <h3>Fundación</h3>
                             <p>1907</p>
-                        </div>
-                        <div class="col-sm-6 col-md-3 item text  ">
+                        </section>
+                        <section className="col-sm-6 col-md-3 item text  ">
                             <section>
                                 <h3>Contacto</h3>
                                 <p>
@@ -46,12 +46,12 @@ export const Footer = () => {
                                     <a href="#">mercadeo@johnuribe.com.co</a>
                                 </p>
                             </section>
-                        </div>
+                        </section>
 
-                    </div>
-                    <p class="copyright">Grupo Uribe © 2023</p>
-                </div>
+                    </section>
+                    <p className="copyright">Grupo Uribe © 2023</p>
+                </section>
             </footer >
-        </div >
+        </section >
     )
 }
