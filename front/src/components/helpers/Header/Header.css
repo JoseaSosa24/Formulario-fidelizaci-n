@@ -1,7 +1,13 @@
-header{
+header {
+  width: 100% !important;
+  background-color: #082032;
+/*  padding-bottom: 1%; */
+/*  margin-bottom: 1% !important; */
+ /* box-shadow: 0px 9px 10px #00000029 !important; */
+ box-shadow: 0 10px 20px rgb(0 0 0 / 0.2);
+}
 
-background-image: url('../../../../src/assets/img/img-header.jfif');
-background-size: contain;
-background-repeat: no-repeat;
-background-color:#282d32;
+header img {
+  width: 100% !important;
+ /*  box-shadow: 0px 15px 20px #0f2a3f8e !important; */
 }
