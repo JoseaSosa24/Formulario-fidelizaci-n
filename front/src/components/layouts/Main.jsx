@@ -4,7 +4,7 @@ import { Informacion } from '../helpers/Informacion/Informacion'
 
 export const Main = () => {
     return (
-        <main className='d-flex flex-row'>
+        <main className=''>
             <Informacion />
             <FormularioClientes />
         </main>
