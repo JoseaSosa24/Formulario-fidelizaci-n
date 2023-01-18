@@ -295,7 +295,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.paises && touched.paises) ? "text-white fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>País: </label>
                                 <Field className={!(errors.paises && touched.paises) ? "form-styling form-control item-form " :
                                     "form-styling form-control item-form border border-danger"} name="paises" as="select">
-                                    <option className='text-center' value="none">-Seleccione País-</option>
+                                    <option className='' value="none">-Seleccione País-</option>
                                     {
                                         datosPaises.map((datoPais) => (
                                             <option key={datoPais.id} value={datoPais.id} id={datoPais.id}>
@@ -311,7 +311,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.departamentos && touched.departamentos) ? "text-white fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Departamento: </label>
                                 <Field className={!(errors.departamentos && touched.departamentos) ? "form-styling form-control item-form " :
                                     "form-styling form-control item-form border border-danger "} name="departamentos" as="select">
-                                    <option className='text-center' value="none">Seleccione Departamento</option>
+                                    <option className='' value="none">Seleccione Departamento</option>
                                     {
                                         datosDepartamentos.map((datoDepartmento) => (
                                             <option key={datoDepartmento.id} value={datoDepartmento.id} id={datoDepartmento.id}>
@@ -326,7 +326,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.ciudades && touched.ciudades) ? "text-white fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Ciudad: </label>
                                 <Field className={!(errors.ciudades && touched.ciudades) ? "form-styling form-control item-form " :
                                     "form-styling form-control item-form border border-danger"} name="ciudades" as="select">
-                                    <option className='text-center' value="">-Seleccione Ciudad-</option>
+                                    <option className='' value="">-Seleccione Ciudad-</option>
                                     {
                                         datosCiudades.map((datoCiudad) => (
                                             <option key={datoCiudad.id} value={datoCiudad.id} id={datoCiudad.id}>
@@ -342,7 +342,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.marcas && touched.marcas) ? "text-white fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Marca: </label>
                                 <Field className={!(errors.marcas && touched.marcas) ? "form-styling form-control item-form " :
                                     "form-styling form-control item-form border border-danger"} name="marcas" as="select">
-                                    <option className='listado-marcas text-center' value="">-Seleccione Marca-</option>
+                                    <option className='listado-marcas ' value="">-Seleccione Marca-</option>
                                     {
                                         datosMarcas.map((datoMarca) => (
                                             <option className='listado-marcas' key={datoMarca.id} value={datoMarca.id} id={datoMarca.id}>
