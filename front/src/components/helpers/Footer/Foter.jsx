@@ -11,7 +11,7 @@ export const Footer = () => {
                             <h3>Grupo Uribe</h3>
                             <p>Conjunto de empresas ubicada en Medellín del sector textil con representación,
                                 y/o producción y comercialización para Colombia de las marcas Chevignon,
-                                Naf Naf, Americanino, Espit, Rifle, American Eagle, MNG.</p>
+                                Naf Naf, Americanino, Esprit, Rifle, American Eagle, MNG.</p>
                         </section>
                         <section className="col-sm-6 col-md-3 item text">
                             <h3>Tamaño de la empresa</h3>
