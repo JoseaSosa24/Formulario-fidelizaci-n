@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300&display=swap');
+
 *{
   box-sizing: border-box;
+  font-family: 'Sofia Sans', sans-serif;
 }
 
 body {
