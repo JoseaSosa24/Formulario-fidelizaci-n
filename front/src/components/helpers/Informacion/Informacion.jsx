@@ -1,5 +1,5 @@
 import React from 'react'
-import { Galeria } from '../Galeria/Galeria'
+import { Galeria } from '../Galeria/Carrusel'
 
 export const Informacion = () => {
     return (
