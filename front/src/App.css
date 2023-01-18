@@ -6,9 +6,10 @@ main {
   /*   background-color: #30475e !important; */
   background-color: #444444 !important;
   box-shadow: 0.5rem 0.5rem darkgray, -0.5rem -0.5rem #082032 !important;
+  display: flex;
 }
 
-.contenedor-formulario{
+.contenedor-formulario {
   margin-top: 3% !important;
   margin-bottom: 3% !important;
 }
@@ -55,10 +56,27 @@ main {
     display: flex !important;
     flex-direction: column !important;
   }
+
+  .informacion {
+    width: 100% !important;
+    height: 100vh !important;
+  }
+  .btn-enviar {
+    width: 35% !important;
+  }
 }
 
 @media (max-width: 991px) {
   main {
     display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .informacion {
+    width: 100% !important;
+    height: 100vh !important;
+  }
+  .btn-enviar {
+    width: 20% !important;
   }
 }
