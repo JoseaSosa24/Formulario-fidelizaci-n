@@ -3,7 +3,8 @@
 }
 
 body {
-  background-color: #141e26 !important;
+ /*  background-color: #141e26 !important; */
+ background-color: #444444 !important;
   width: auto !important;
   height: 100vh !important;
   color: white !important;
