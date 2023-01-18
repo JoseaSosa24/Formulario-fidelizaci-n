@@ -10,9 +10,9 @@ export const FormInput = ({classSection, infomacionInput, inputId, error, touche
     <>
 
       <section className={" " + classSection}>
-        <label className={!(error && touched) ? "text-white fs-5 fw-bold" : "text-danger fs-5 fw-bold"}>{title}</label>
+        <label className={!(error && touched) ? "text-white fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>{title}</label>
         <Field
-          className={!(error && touched) ? classInput + " form-control item-form " : classInput +" form-control item-form border border-danger border-2 rounded-5"}
+          className={!(error && touched) ? classInput + " form-control item-form " : classInput +" form-control item-form border border-danger"}
           type={tipoInput}
           id={inputId}
           name={inputName}
