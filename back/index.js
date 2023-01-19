@@ -22,12 +22,13 @@ try {
 
 app.use(cors());
 app.use(express.json());
-app.use('/ciudades', ciudadesRouter) // ruta ciudades
+app.use('/tiposidentificaciones', tiposIdentificacionRouter)
 app.use('/clientes', clientesRouter) //ruta clientes
-app.use('/departamentos', departamentosRouter)
 app.use('/marcas', marcasRouter)
 app.use('/paises', paisesRouter)
-app.use('/tiposidentificaciones', tiposIdentificacionRouter)
+app.use('/departamentos', departamentosRouter)
+app.use('/ciudades', ciudadesRouter) // ruta ciudades
+
 
 app.listen(port, () => {
     console.log("Servidor corriendo en el puerto " + port);
