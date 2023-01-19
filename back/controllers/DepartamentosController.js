@@ -31,6 +31,17 @@ const mostrarDepartamentos = async (req, res) => {
     }
 }
 
+const mostrarDepartamentosPorPais = async (req, res) => {
+    try {
+        const { id:paisId } = req.params;
+        const departamentos = await Departamentos.findAll({ where: { pais_id: paisId } });
+        res.status(200).json(departamentos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener los departamentos del país"+error });
+    }
+}
+
 const mostrarDepartamento = async (req, res) => {
     try {
         const { Op } = Sequelize
@@ -86,5 +97,6 @@ export {
     mostrarDepartamentos,
     mostrarDepartamento,
     editarDepartamento,
-    borrarDepartamento
+    borrarDepartamento,
+    mostrarDepartamentosPorPais
 }
