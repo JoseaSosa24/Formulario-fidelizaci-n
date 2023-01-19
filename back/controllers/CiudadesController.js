@@ -28,6 +28,17 @@ const mostrarCiudades = async (req, res) => {
     }
 }
 
+const mostrarCiudadesPorDepartamento = async (req, res) => {
+    try {
+        const { id:departamentoId } = req.params;
+        const ciudades = await Ciudades.findAll({ where: { departamento_id: departamentoId } });
+        res.status(200).json(ciudades);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener las ciudades" });
+    }
+}
+
 const mostrarCiudad = async (req, res) => {
     try {
         const ciudad = await Ciudades.findOne({
@@ -80,6 +91,11 @@ const borrarCiudad = async (req, res) => {
     }
 }
 
-export { crearCiudad, mostrarCiudad, mostrarCiudades, editarCiudad, borrarCiudad }
+export {
+    crearCiudad,
+    mostrarCiudad, mostrarCiudades,
+    editarCiudad, borrarCiudad,
+    mostrarCiudadesPorDepartamento
+}
 
 

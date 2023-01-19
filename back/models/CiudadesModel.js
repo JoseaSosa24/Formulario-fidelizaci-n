@@ -1,16 +1,5 @@
 import dataBase from "../database/dataBase.js";
 import { DataTypes } from "sequelize";
-import fs from 'fs';
-import path from "path"
-import  join  from 'path';
-
-
-
-/* const fs = fs;
-const path = path */
-
-/* const ciudadesPath = path.join(__dirname, '../json/ciudades.json');
-const ciudadesJSON = JSON.parse(fs.readFileSync(ciudadesPath, 'utf-8')); */
 
 
 const Ciudades = dataBase.define('ciudades', {
