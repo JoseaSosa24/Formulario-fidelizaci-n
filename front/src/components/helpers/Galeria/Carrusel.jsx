@@ -2,37 +2,44 @@ import React, { useState, useEffect } from 'react';
 import '../Galeria/carrusel.css'
 import { CSSTransition } from 'react-transition-group';
 
-const images = [
-    '../../../../src/assets/img/marcas/americaneagle.png',
-    '../../../../src/assets/img/marcas/americanino.png',
-    '../../../../src/assets/img/marcas/chevignon.png',
-    '../../../../src/assets/img/marcas/esprit.png',
-    '../../../../src/assets/img/marcas/nafnaf.png',
-    '../../../../src/assets/img/marcas/rifle.png',
 
+const marcas = [
+    {
+        img: "../../../../src/assets/img/marcas/americaneagle.png",
+        link: "https://www.ae.com.co/",
+      
+    },
+    {
+        img: "../../../../src/assets/img/marcas/americanino.png",
+        link: "https://www.americanino.com/",
+    },
+    {
+        img: "../../../../src/assets/img/marcas/chevignon.png",
+        link: "https://www.chevignon.com.co/"
+    },
+    {
+        img: "../../../../src/assets/img/marcas/esprit.png",
+        link: "../../../../src/assets/img/marcas/esprit.png"
+    },
+    {
+        img: "../../../../src/assets/img/marcas/nafnaf.png",
+        link: "https://www.esprit.com.co/"
+    },
+    {
+        img: "../../../../src/assets/img/marcas/rifle.png",
+        link: "https://www.rifle.com.co/"
+    }
 ];
 
-const linksMarcas = [
-    'https://www.ae.com.co/',
-    'https://www.americanino.com/',
-    'https://www.chevignon.com.co/',
-    ' https://www.esprit.com.co/',
-    'https://www.nafnaf.com.co/',
-    'https://www.rifle.com.co/'
-]
 
 export const Galeria = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [currentIndexLinks, setCurrentIndexLinks] = useState(0);
-    const [contentVisible, setcontentVisible] = useState(false);
 
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setCurrentIndex(currentIndex => (currentIndex + 1) % images.length);
-            setCurrentIndexLinks(currentIndexLinks => (currentIndexLinks + 1) % linksMarcas.length)
-        }, 5000);
-        setcontentVisible(true)
+            setCurrentIndex(currentIndex => (currentIndex + 1) % marcas.length);
+       }, 5000);
         return () => clearInterval(intervalId);
     }, []);
 
@@ -40,8 +47,8 @@ export const Galeria = () => {
         <>
             <section className= "galeria d-flex flex-column ">
                 <CSSTransition in={true} timeout={2000} classNames="fade">
-                    <a href={linksMarcas[currentIndexLinks]} target="_blank">
-                        <img className='carousel-image' src={images[currentIndex]} id={currentIndex} alt="slide" width={270} />
+                    <a href={marcas[currentIndex].link} target="_blank">
+                        <img className='carousel-image' src={marcas[currentIndex].img} id={currentIndex} alt="img-marcas" width={270} />
                     </a>
                 </CSSTransition>
             </section>
