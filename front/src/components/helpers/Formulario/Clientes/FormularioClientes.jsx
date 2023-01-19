@@ -33,16 +33,19 @@ export const FormularioClientes = () => {
     const [datosDepartamentos, setDatosDepartamentos] = useState([]);
     const [datosCiudades, setDatosCiudades] = useState([]);
     const [datosClientes, setDatosClientes] = useState([]);
+    const [formularioEnviado, setFormularioEnviado] = useState(false);
 
     useEffect(() => {
+        setFormVisible(true);
         getIdentificaciones();
         getMarcas();
         getPaises();
         getDepartamentos();
         getCiudades();
         getClientes();
-        
-        setFormVisible(true);
+        setTimeout(() => {
+            setFormularioEnviado(false);
+        }, 5000);
     }, [])
 
 
@@ -103,9 +106,6 @@ export const FormularioClientes = () => {
 
     const agregarCliente = async (valores) => {
         console.table(valores)
-        /* const { tipoIdentificacion,numero_identificacion, nombres, apellidos, direccion,
-           paises, marcas } = valores  */
-
         const res = await axios.post(uriClientes, {
             "tipo_identificacion_id": valores.tipo_identificacion,
             "numero_identificacion": valores.numero_identificacion,
@@ -122,9 +122,7 @@ export const FormularioClientes = () => {
         });
         if (res.data.estado) {
             console.log("Agregado")
-            /* res.data.message */
-            /* correcto(); */
-            /* console.log("Cliente agregado correctamente") */
+            setFormularioEnviado(true)
         } else {
             console.log(res.data.message)
             /* incorrecto(res.data.message); */
@@ -134,9 +132,9 @@ export const FormularioClientes = () => {
 
     return (
         <>
-            <section className= "contenedor-formulario container d-flex flex-column align-items-center justify-content-center">
-                <Titulo textTitulo={"Para acceder a este y más beneficios"} className={formVisible ? "content-visible mb-4 fs-4 text-black mt-5": "content-hidden" }/>
-                <Titulo textTitulo={"¡Regístrate aquí! "} className={formVisible ? "content-visible mb-4 text-black": "content-hidden"} />
+            <section className="contenedor-formulario container d-flex flex-column align-items-center justify-content-center">
+                <Titulo textTitulo={"Para acceder a este y más beneficios"} className={formVisible ? "content-visible mb-4 fs-4 text-black mt-5" : "content-hidden"} />
+                <Titulo textTitulo={"¡Regístrate aquí! "} className={formVisible ? "content-visible mb-4 text-black" : "content-hidden"} />
                 <Formik
                     className="formik"
                     enableReinitialize={true}
@@ -155,6 +153,9 @@ export const FormularioClientes = () => {
                     }}
 
                     validate={(valores) => {
+                        const fechaActual = new Date();
+                        const cumple = new Date(valores.fecha_nacimiento);
+
                         let errores = {};
                         if (valores.tipo_identificacion === 'none') {
                             errores.tipo_identificacion = 'Tipo de Identificación requerida'
@@ -185,12 +186,20 @@ export const FormularioClientes = () => {
 
                         if (!valores.direccion) {
                             errores.direccion = 'Dirección requerida'
-                        } /*else if (!expresionRegular.direccion.test(valores.direccion)) {
-                errores.direccion = 'El direccion debe contener @ ,.'
-              }*/
+                        }
+
                         if (!valores.fecha_nacimiento) {
                             errores.fecha_nacimiento = 'Por favor selecciona una fecha'
+                        } else if (cumple > fechaActual) {
+                            errores.fecha_nacimiento = 'La fecha de nacimiento no puede ser mayor a la fecha actual'
+                        } else {
+                            const edad = fechaActual.getFullYear() - cumple.getFullYear();
+                            if (edad< 18) {
+                                errores.fecha_nacimiento = "Debe tener al menos 18 años";
+                            }
                         }
+
+
                         if (valores.paises === 'none') {
                             errores.paises = 'País requerido'
                         }
@@ -212,12 +221,12 @@ export const FormularioClientes = () => {
                     }}
                 >
                     {({ errors, touched }) => (
-                        <Form className= {formVisible ? "content-visible formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3" : "content-hidden formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3"}>
+                        <Form className={formVisible ? "content-visible formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3" : "content-hidden formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3"}>
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}
                                 >Tipo de Identificación:</label>
                                 <Field
-                                    className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "form-styling form-control item-form " :
+                                    className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "form-styling form-control item-form fw-light" :
                                         "form-styling form-control item-form border border-danger"} name="tipo_identificacion" as="select">
                                     <option className='' value="none">-Tipo Identificación-</option>
                                     {
@@ -361,8 +370,14 @@ export const FormularioClientes = () => {
                             </section>
 
                             <Button clase={'form-button d-flex justify-content-center col-12 '}
-                                classButton={'btn-enviar col-2 mt-4 mb-5'}
+                                classButton={'btn-enviar col-2 mt-4 mb-4'}
                                 textButton={'Enviar'} type={'submit'} />
+                            {formularioEnviado && (
+                                <section className='d-flex justify-content-center mb-4'>
+                                    <p className="textExito text-success fw-bold">¡Datos enviados correctamente!</p>
+                                </section>
+                            )}
+
                         </Form>
                     )}
                 </Formik>
