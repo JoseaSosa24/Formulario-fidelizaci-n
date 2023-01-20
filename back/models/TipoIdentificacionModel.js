@@ -22,6 +22,6 @@ const TipoIdentificacion = dataBase.define('tipos_identificaciones', {
 });
 
  
- TipoIdentificacion.sync({ force: false }); 
+ /* TipoIdentificacion.sync({ force: false });  */
 
 export { TipoIdentificacion }
