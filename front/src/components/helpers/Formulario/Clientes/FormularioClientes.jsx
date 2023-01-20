@@ -25,7 +25,7 @@ export const FormularioClientes = () => {
         nombre: /^[a-zA-ZÀ-ÿ\s]{3,40}$/, // Letras y espacios, pueden llevar acentos.
         password: /^.{4,12}$/, // 4 a 12 digitos
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        documento: /^\d{9,10}$/,
+        documento: /^\d{8,10}$/,
         celular: /^\d{10}$/
     };
 
@@ -166,7 +166,7 @@ export const FormularioClientes = () => {
                         if (!valores.numero_identificacion) {
                             errores.numero_identificacion = 'Identificación requerida'
                         } else if (!expresionRegular.documento.test(valores.numero_identificacion)) {
-                            errores.numero_identificacion = 'El documento debe tener mínimo 9 máximo 10 digitos númericos'
+                            errores.numero_identificacion = 'El documento debe tener mínimo 8 máximo 10 digitos númericos'
                         }
 
                         if (!valores.nombres) {
