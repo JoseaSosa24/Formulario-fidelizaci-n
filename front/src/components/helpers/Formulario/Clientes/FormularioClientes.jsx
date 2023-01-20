@@ -9,13 +9,15 @@ import axios from "axios";
 export const FormularioClientes = () => {
     const [formVisible, setFormVisible] = useState(false);
 
-
+    /*  const { id } = useParams(); */
 
     const uriIdentificaciones = 'http://localhost:3100/tiposidentificaciones';
     const uriMarcas = 'http://localhost:3100/marcas';
     const uriPaises = 'http://localhost:3100/paises';
     const uriDepartamentos = 'http://localhost:3100/departamentos';
+    const uriDepartamentosPorPais = 'http://localhost:3100/departamentos/pais'
     const uriCiudades = 'http://localhost:3100/ciudades';
+    const uriCiudadesPorDepartamentos = 'http://localhost:3100/ciudades/departamento';
     const uriClientes = 'http://localhost:3100/clientes';
 
     const expresionRegular = {
@@ -49,6 +51,8 @@ export const FormularioClientes = () => {
     }, [])
 
 
+
+
     const getIdentificaciones = async () => {
         try {
             const res = await axios.get(uriIdentificaciones);
@@ -76,18 +80,19 @@ export const FormularioClientes = () => {
         }
     }
 
-    const getDepartamentos = async () => {
+    const getDepartamentos = async (paisSeleccionado) => {
+        console.log(paisSeleccionado)
         try {
-            const res = await axios.get(uriDepartamentos);
+            const res = await axios.get(uriDepartamentosPorPais + "/" + paisSeleccionado);
             setDatosDepartamentos(res.data)
         } catch (error) {
             console.error(error);
         }
     }
 
-    const getCiudades = async () => {
+    const getCiudades = async (departamentoSeleccionado) => {
         try {
-            const res = await axios.get(uriCiudades);
+            const res = await axios.get(uriCiudadesPorDepartamentos + "/" + departamentoSeleccionado);
             setDatosCiudades(res.data)
         } catch (error) {
             console.error(error);
@@ -194,18 +199,28 @@ export const FormularioClientes = () => {
                             errores.fecha_nacimiento = 'La fecha de nacimiento no puede ser mayor a la fecha actual'
                         } else {
                             const edad = fechaActual.getFullYear() - cumple.getFullYear();
-                            if (edad< 18) {
+                            if (edad < 18) {
                                 errores.fecha_nacimiento = "Debe tener al menos 18 años";
+                            } else if(edad>100){
+                                errores.fecha_nacimiento = "No puede tener más de 100 años";
                             }
                         }
 
 
                         if (valores.paises === 'none') {
                             errores.paises = 'País requerido'
+                        } else {
+                            getDepartamentos(valores.paises)
                         }
+
+
                         if (valores.departamentos === 'none') {
                             errores.departamentos = 'Departamento requerido'
+                        } else {
+                            getCiudades(valores.departamentos)
                         }
+
+
                         if (valores.ciudades === 'none') {
                             errores.ciudades = 'Ciudad requerida'
                         }
@@ -222,7 +237,7 @@ export const FormularioClientes = () => {
                 >
                     {({ errors, touched }) => (
                         <Form className={formVisible ? "content-visible formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3" : "content-hidden formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3"}>
-                            <section className='col-md-5 campos'>
+                            <section className='col-md-5 campos' >
                                 <label className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}
                                 >Tipo de Identificación:</label>
                                 <Field
@@ -308,10 +323,16 @@ export const FormularioClientes = () => {
                             />
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.paises && touched.paises) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>País: </label>
+
                                 <Field className={!(errors.paises && touched.paises) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger"} name="paises" as="select">
+                                    "form-styling form-control item-form border border-danger"}
+                                    name="paises"
+                                    as="select"
+                                >
                                     <option className='' value="none">-Seleccione País-</option>
+
                                     {
+                                        Array.isArray(datosPaises) && datosPaises.length > 0 &&
                                         datosPaises.map((datoPais) => (
                                             <option key={datoPais.id} value={datoPais.id} id={datoPais.id}>
                                                 {datoPais.nombre}
@@ -325,24 +346,34 @@ export const FormularioClientes = () => {
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.departamentos && touched.departamentos) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Departamento: </label>
                                 <Field className={!(errors.departamentos && touched.departamentos) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger "} name="departamentos" as="select">
-                                    <option className='' value="none">Seleccione Departamento</option>
+                                    "form-styling form-control item-form border border-danger "}
+                                    name="departamentos"
+                                    as="select"
+                                >
+                                    <option className='' value="none">-Seleccione Departamento-</option>
                                     {
-                                        datosDepartamentos.map((datoDepartmento) => (
-                                            <option key={datoDepartmento.id} value={datoDepartmento.id} id={datoDepartmento.id}>
-                                                {datoDepartmento.nombre}
+                                        Array.isArray(datosDepartamentos) && datosDepartamentos.length > 0 &&
+                                        datosDepartamentos.map((datoDepartamento) => (
+                                            <option key={datoDepartamento.id} value={datoDepartamento.id} id={datoDepartamento.id}>
+                                                {datoDepartamento.nombre}
                                             </option>
                                         ))
+
                                     }
                                 </Field>
+
                                 <ErrorMessage name="departamentos" component={() => (<p className="textoError text-danger fw-bold">{errors.departamentos}</p>)} />
                             </section>
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.ciudades && touched.ciudades) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Ciudad: </label>
-                                <Field className={!(errors.ciudades && touched.ciudades) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger"} name="ciudades" as="select">
-                                    <option className='' value="">-Seleccione Ciudad-</option>
+                                <Field
+                                    className={!(errors.ciudades && touched.ciudades) ? "form-styling form-control item-form " :
+                                        "form-styling form-control item-form border border-danger"}
+                                    name="ciudades"
+                                    as="select">
+                                    <option className='' value="none">-Seleccione Ciudad-</option>
                                     {
+                                        Array.isArray(datosCiudades) && datosCiudades.length > 0 &&
                                         datosCiudades.map((datoCiudad) => (
                                             <option key={datoCiudad.id} value={datoCiudad.id} id={datoCiudad.id}>
                                                 {datoCiudad.nombre}
@@ -356,7 +387,9 @@ export const FormularioClientes = () => {
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.marcas && touched.marcas) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Marca: </label>
                                 <Field className={!(errors.marcas && touched.marcas) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger"} name="marcas" as="select">
+                                    "form-styling form-control item-form border border-danger"}
+                                    name="marcas"
+                                    as="select">
                                     <option className='listado-marcas ' value="">-Seleccione Marca-</option>
                                     {
                                         datosMarcas.map((datoMarca) => (
@@ -377,7 +410,6 @@ export const FormularioClientes = () => {
                                     <p className="textExito text-success fw-bold">¡Datos enviados correctamente!</p>
                                 </section>
                             )}
-
                         </Form>
                     )}
                 </Formik>
