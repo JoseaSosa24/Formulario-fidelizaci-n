@@ -45,12 +45,7 @@ export const FormularioClientes = () => {
         getDepartamentos();
         getCiudades();
         getClientes();
-        setTimeout(() => {
-            setFormularioEnviado(false);
-        }, 5000);
     }, [])
-
-
 
 
     const getIdentificaciones = async () => {
@@ -110,7 +105,7 @@ export const FormularioClientes = () => {
 
 
     const agregarCliente = async (valores) => {
-        console.table(valores)
+        //console.table(valores)
         const res = await axios.post(uriClientes, {
             "tipo_identificacion_id": valores.tipo_identificacion,
             "numero_identificacion": valores.numero_identificacion,
@@ -128,6 +123,9 @@ export const FormularioClientes = () => {
         if (res.data.estado) {
             console.log("Agregado")
             setFormularioEnviado(true)
+            setTimeout(() => {
+                setFormularioEnviado(false);
+            }, 5000);
         } else {
             console.log(res.data.message)
             /* incorrecto(res.data.message); */
@@ -201,7 +199,7 @@ export const FormularioClientes = () => {
                             const edad = fechaActual.getFullYear() - cumple.getFullYear();
                             if (edad < 18) {
                                 errores.fecha_nacimiento = "Debe tener al menos 18 años";
-                            } else if(edad>100){
+                            } else if (edad > 100) {
                                 errores.fecha_nacimiento = "No puede tener más de 100 años";
                             }
                         }
@@ -232,7 +230,7 @@ export const FormularioClientes = () => {
 
                     onSubmit={(valores, { resetForm }) => {
                         agregarCliente(valores)
-                        //resetForm();
+                        resetForm();
                     }}
                 >
                     {({ errors, touched }) => (
