@@ -30,7 +30,7 @@ export const Footer = () => {
                             </section>
                             <section>
 
-                                <p>Carrera 52 # 19 - 80 avenida guayabal</p>
+                                <p>Carrera 52 #19-80 avenida guayabal</p>
                             </section>
                             <section>
                                 <p>050024 Medellin</p>
