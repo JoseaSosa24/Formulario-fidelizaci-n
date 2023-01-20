@@ -85,7 +85,7 @@ const Clientes = dataBase.define('clientes', {
     }
 });
 
-Clientes.sync({ force: false });
+/* Clientes.sync({ force: false }); */
 
 export {
     Clientes

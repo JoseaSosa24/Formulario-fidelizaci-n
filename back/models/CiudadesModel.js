@@ -26,20 +26,7 @@ const Ciudades = dataBase.define('ciudades', {
     }
 });
 
-
-
-/* ciudades.forEach(ciudad => Ciudades.findOrCreate(
-    {
-        where: { id: ciudad.id }, defaults: ciudad
-    }
-));  */
-/* Ciudades.bulkCreate(ciudadesJSON, { ignoreDuplicates: true }).then(() => {
-    console.log('Datos insertados correctamente');
-}).catch((error) => {
-    console.log(error);
-}) */
-
-Ciudades.sync({ force: false });
+/* Ciudades.sync({ force: false }); */
 
 export {
     Ciudades

@@ -21,7 +21,7 @@ const Marcas = dataBase.define('marcas', {
     }
 });
 
-Marcas.sync({ force: false });
+/* Marcas.sync({ force: false }); */
 
 export {
     Marcas
