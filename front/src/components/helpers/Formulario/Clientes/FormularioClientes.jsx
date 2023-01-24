@@ -135,9 +135,9 @@ export const FormularioClientes = () => {
 
     return (
         <>
-            <section className="contenedor-formulario container d-flex flex-column align-items-center justify-content-center">
+            <section className="contenedor-formulario d-flex flex-column align-items-center justify-content-center">
                 <Titulo textTitulo={"Para acceder a este y más beneficios"} className={formVisible ? "content-visible mb-4 fs-4 text-black mt-5" : "content-hidden"} />
-                <Titulo textTitulo={"¡Regístrate aquí! "} className={formVisible ? "content-visible mb-4 text-black" : "content-hidden"} />
+                <Titulo textTitulo={"¡Regístrate aquí! "} className={formVisible ? "content-visible mb-4 text-black " : "content-hidden"} />
                 <Formik
                     className="formik"
                     enableReinitialize={true}
@@ -234,13 +234,13 @@ export const FormularioClientes = () => {
                     }}
                 >
                     {({ errors, touched }) => (
-                        <Form className={formVisible ? "content-visible formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3" : "content-hidden formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3"}>
+                        <Form className={formVisible ? "content-visible formulario-clientes d-flex align-items-center justify-content-center row col-12 g-3" : "content-hidden formulario-clientes d-flex align-items-center justify-content-center row col-12 p-2 g-3"}>
                             <section className='col-md-5 campos' >
                                 <label className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}
                                 >Tipo de Identificación:</label>
                                 <Field
                                     className={!(errors.tipo_identificacion && touched.tipo_identificacion) ? "form-styling form-control item-form fw-light" :
-                                        "form-styling form-control item-form border border-danger"} name="tipo_identificacion" as="select">
+                                        "form-styling form-control item-form border border-danger border-2"} name="tipo_identificacion" as="select">
                                     <option className='' value="none">-Tipo Identificación-</option>
                                     {
                                         datosIdentificaciones.map((datoIdentificacion) => (
@@ -323,7 +323,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.paises && touched.paises) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>País: </label>
 
                                 <Field className={!(errors.paises && touched.paises) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger"}
+                                    "form-styling form-control item-form border border-danger border-2"}
                                     name="paises"
                                     as="select"
                                 >
@@ -344,7 +344,7 @@ export const FormularioClientes = () => {
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.departamentos && touched.departamentos) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Departamento: </label>
                                 <Field className={!(errors.departamentos && touched.departamentos) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger "}
+                                    "form-styling form-control item-form border border-danger border-2"}
                                     name="departamentos"
                                     as="select"
                                 >
@@ -366,7 +366,7 @@ export const FormularioClientes = () => {
                                 <label className={!(errors.ciudades && touched.ciudades) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Ciudad: </label>
                                 <Field
                                     className={!(errors.ciudades && touched.ciudades) ? "form-styling form-control item-form " :
-                                        "form-styling form-control item-form border border-danger"}
+                                        "form-styling form-control item-form border border-danger border-2"}
                                     name="ciudades"
                                     as="select">
                                     <option className='' value="none">-Seleccione Ciudad-</option>
@@ -385,7 +385,7 @@ export const FormularioClientes = () => {
                             <section className='col-md-5 campos'>
                                 <label className={!(errors.marcas && touched.marcas) ? "text-black fs-6 fw-bold" : "text-danger fs-6 fw-bold"}>Marca: </label>
                                 <Field className={!(errors.marcas && touched.marcas) ? "form-styling form-control item-form " :
-                                    "form-styling form-control item-form border border-danger"}
+                                    "form-styling form-control item-form border border-danger border-2"}
                                     name="marcas"
                                     as="select">
                                     <option className='listado-marcas ' value="">-Seleccione Marca-</option>
