@@ -19,11 +19,11 @@ const marcas = [
     },
     {
         img: "../../../../src/assets/img/marcas/esprit.png",
-        link: "../../../../src/assets/img/marcas/esprit.png"
+        link: "https://www.esprit.com.co/"
     },
     {
         img: "../../../../src/assets/img/marcas/nafnaf.png",
-        link: "https://www.esprit.com.co/"
+        link: "https://www.nafnaf.com.co/"
     },
     {
         img: "../../../../src/assets/img/marcas/rifle.png",
